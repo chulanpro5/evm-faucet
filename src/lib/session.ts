@@ -5,9 +5,14 @@ export interface SessionData {
   isAdmin?: boolean
 }
 
+// iron-session requires password >= 32 chars; pad with # if shorter
+function makePassword(pw: string): string {
+  return pw.padEnd(32, "#")
+}
+
 export const sessionOptions: SessionOptions = {
   cookieName: "evm-faucet-session",
-  password: process.env.SESSION_PASSWORD ?? "change-me-in-production-32-chars!!",
+  password: makePassword(process.env.SESSION_PASSWORD ?? "change-me-in-prod"),
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
