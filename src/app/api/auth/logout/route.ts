@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server"
-import { getSession } from "@/lib/session"
-
-export async function POST() {
-  const session = await getSession()
-  session.destroy()
-  return NextResponse.json({ ok: true })
-}
+export async function GET() { return NextResponse.json({ error: "Not found" }, { status: 404 }) }
+export async function POST() { return NextResponse.json({ error: "Not found" }, { status: 404 }) }
+export async function PUT() { return NextResponse.json({ error: "Not found" }, { status: 404 }) }
+export async function DELETE() { return NextResponse.json({ error: "Not found" }, { status: 404 }) }

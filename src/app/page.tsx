@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { formatUnits } from "viem"
-import Link from "next/link"
 import { Logo } from "@/components/logo"
 
 interface TokenOption {
@@ -86,12 +85,6 @@ export default function FaucetPage() {
           <Logo />
           <span className="font-semibold text-sm tracking-tight">EVM Faucet</span>
         </div>
-        <Link
-          href="/admin"
-          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Admin →
-        </Link>
       </header>
 
       {/* Main */}

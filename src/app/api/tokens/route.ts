@@ -1,24 +1,20 @@
 import { NextResponse } from "next/server"
-import { migrate } from "@/lib/db/schema"
-import { getTokens, getConfig } from "@/lib/db/queries"
-
-migrate()
+import { getEnvConfig } from "@/lib/config"
 
 export async function GET() {
-  const config = getConfig()
-  const tokens = getTokens(true)
+  const cfg = getEnvConfig()
 
-  const nativeOption = config
+  const nativeOption = cfg.nativeDrip
     ? {
         key: "native",
-        symbol: config.nativeSymbol || "ETH",
-        dripAmount: config.nativeDrip,
+        symbol: cfg.nativeSymbol,
+        dripAmount: cfg.nativeDrip,
         decimals: 18,
         type: "native" as const,
       }
     : null
 
-  const erc20Options = tokens.map((t) => ({
+  const erc20Options = cfg.tokens.map((t) => ({
     key: t.address,
     symbol: t.symbol,
     dripAmount: t.dripAmount,

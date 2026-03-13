@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import { migrate } from "@/lib/db/schema"
 import { dripSchema } from "@/lib/validation"
 import { dripNative, dripERC20 } from "@/lib/blockchain/drip"
-
-migrate()
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,12 +12,9 @@ export async function POST(req: NextRequest) {
 
     const { recipient, tokenKey } = parsed.data
 
-    let result
-    if (tokenKey === "native") {
-      result = await dripNative(recipient)
-    } else {
-      result = await dripERC20(recipient, tokenKey)
-    }
+    const result = tokenKey === "native"
+      ? await dripNative(recipient)
+      : await dripERC20(recipient, tokenKey)
 
     return NextResponse.json(result)
   } catch (err) {
